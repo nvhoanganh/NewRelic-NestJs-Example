@@ -13,10 +13,11 @@ export class CatsService {
   constructor(@InjectModel(Cat.name) private catModel: Model<CatDocument>) {}
 
   async create(createCatDto: CreateCatDto): Promise<Cat> {
-    // return newrelic.startSegment('getHelloService', false, () => {
-    const createdCat = new this.catModel(createCatDto);
-    return createdCat.save();
-    // });
+    // https://newrelic.github.io/node-newrelic/docs/API.html
+    return newrelic.startSegment('getHelloService', false, () => {
+      const createdCat = new this.catModel(createCatDto);
+      return createdCat.save();
+    });
   }
 
   async findAll(): Promise<Cat[]> {

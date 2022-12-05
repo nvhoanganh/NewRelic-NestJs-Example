@@ -8,17 +8,17 @@ import { map } from 'rxjs/operators';
 export class AppService {
   constructor(private http: HttpService) { }
   getHello(): any {
-    //return newrelic.startSegment('getHelloService', false, () => {
-    console.log('Calling child ...');
-    return this.http
-      .get('http://localhost:3001')
-      .pipe(
-        map((response) => {
-          console.log(`Child says ${JSON.stringify(response.data)}`);
-          return 'child service said:' + response.data;
-        }
-        ),
-      );
-    // });
+    return newrelic.startSegment('getHelloService', false, () => {
+      console.log('Calling child ...');
+      return this.http
+        .get('http://localhost:3001')
+        .pipe(
+          map((response) => {
+            console.log(`Child says ${JSON.stringify(response.data)}`);
+            return 'child service said:' + response.data;
+          }
+          ),
+        );
+    });
   }
 }

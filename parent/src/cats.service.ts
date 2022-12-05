@@ -8,17 +8,17 @@ export class CatsService {
   constructor(private http: HttpService) {}
 
   create(cat): any {
-    //return newrelic.startSegment('getHelloService', false, () => {
-    return this.http
-      .post('http://child:3000/cats/create', cat)
-      .pipe(
-        map((response) =>
-          console.log(
-            `Cats Child create says ${JSON.stringify(response.data)}`,
+    return newrelic.startSegment('getHelloService', false, () => {
+      return this.http
+        .post('http://child:3000/cats/create', cat)
+        .pipe(
+          map((response) =>
+            console.log(
+              `Cats Child create says ${JSON.stringify(response.data)}`,
+            ),
           ),
-        ),
-      );
-    // });
+        );
+    });
   }
 
   getAll(): any {

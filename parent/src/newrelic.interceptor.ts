@@ -17,6 +17,8 @@ export class NewrelicInterceptor implements NestInterceptor {
     console.log(
       `Parent Interceptor before: ${util.inspect(context.getHandler().name)}`,
     );
+
+    // https://newrelic.github.io/node-newrelic/docs/API.html
     return newrelic.startWebTransaction(context.getHandler().name, function () {
       const transaction = newrelic.getTransaction();
       // const now = Date.now();
